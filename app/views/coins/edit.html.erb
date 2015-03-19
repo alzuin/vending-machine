@@ -1,0 +1,18 @@
+<h1>Recharge <%=@coin.value_in_pound%> coin</h1>
+
+<%=render('layouts/flashes') %>
+
+<%= form_for @coin do |f| %>
+  <div class="form-group">
+    <%=f.label :difference%>
+    <%=f.text_field :difference%>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit 'Add' %>
+    </div>
+  </div>
+<% end %>
+
+<%=link_to 'Coins situation', coins_path%> |
+<%=link_to 'Home', root_path%>

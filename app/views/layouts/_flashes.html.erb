@@ -1,0 +1,11 @@
+<% flash.each do |name, msg| %>
+  <div class="row">
+    <div class="twelve columns">
+      <% if name == 'error' %>
+        <%= content_tag :div, msg, class: "alert alert-danger" %>
+      <% else %>
+        <%= content_tag :div, msg, class: "alert alert-#{name}" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
