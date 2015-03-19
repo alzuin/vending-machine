@@ -17,6 +17,10 @@ RSpec.describe Coin, type: :model do
   it 'is invalid with a size outside of range' do
     expect(FactoryGirl.build(:coin, size: 3)).not_to be_valid
   end
+  it 'does not allow duplicate api_id' do
+    FactoryGirl.create(:coin, size: '10' )
+    expect(FactoryGirl.build(:coin, size: 10 )).not_to  be_valid
+  end
 
   it 'is invalid without a quantity' do
     expect(FactoryGirl.build(:coin, quantity: nil)).not_to be_valid

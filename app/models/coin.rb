@@ -7,5 +7,6 @@
 class Coin < ActiveRecord::Base
   validates_presence_of :size, :quantity
   validates :size, numericality: { only_integer: true }, inclusion: { in: [1,2,5,10,20,50,100,200] }
+  validates_uniqueness_of :size
   validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 end
