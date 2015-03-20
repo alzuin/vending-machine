@@ -3,6 +3,8 @@
     <div class="twelve columns">
       <% if name == 'error' %>
         <%= content_tag :div, msg, class: "alert alert-danger" %>
+      <% elsif name == 'notice' %>
+        <%= content_tag :div, msg, class: "alert alert-info" %>
       <% else %>
         <%= content_tag :div, msg, class: "alert alert-#{name}" %>
       <% end %>

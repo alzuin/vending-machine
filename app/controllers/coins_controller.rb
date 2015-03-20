@@ -1,4 +1,5 @@
 class CoinsController < ApplicationController
+  # Show a table with the summary of the coins inside the Vending Machine
   def index
     @coins = Coin.all
     respond_to do |format|
@@ -9,10 +10,12 @@ class CoinsController < ApplicationController
     end
   end
 
+  # Display a form to add coins (one type, how many like)
   def edit
     @coin = Coin.find(params[:id])
   end
 
+  # Add the coins in database
   def update
     @coin = Coin.find(params[:id])
     if @coin.update(coin_params)

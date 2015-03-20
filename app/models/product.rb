@@ -6,6 +6,8 @@
 # * updated_at: standard in RoR, is independent from the one that comes from the API
 # attr_accessor:
 # * difference: the increasing/decreasing quantity
+# has_many:
+# * sellings: all the sales linked with this product
 
 class Product < ActiveRecord::Base
   include MathOperations
@@ -21,4 +23,9 @@ class Product < ActiveRecord::Base
 
   before_save :update_quantity
 
+  has_many :sellings
+
+  def option_for_select
+    "#{self.name} - #{self.value_in_pound} (#{self.quantity} in stock)"
+  end
 end

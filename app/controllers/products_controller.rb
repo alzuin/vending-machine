@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
 
+  # Display a summary of all products in the vending machine
   def index
     @products = Product.all
     respond_to do |format|
@@ -10,11 +11,12 @@ class ProductsController < ApplicationController
     end
   end
 
-  # Add a new product to the vending machine
+  # Display a form to add a new product to the vending machine
   def new
     @product = Product.new
   end
 
+  # Add a product in the vending machine
   def create
     @product = Product.create(product_params)
     if @product.save
@@ -42,10 +44,12 @@ class ProductsController < ApplicationController
     end
   end
 
+  # Display a form to increase the quantity of a product inside the vending machine
   def edit
     @product = Product.find(params[:id])
   end
 
+  # Increase the quantity of a product inside the vending machine
   def update
     @product = Product.find(params[:id])
     if @product.update(product_params)
@@ -72,6 +76,7 @@ class ProductsController < ApplicationController
     end
   end
 
+  # Delete a product
   def destroy
     product = Product.find(params[:id]).destroy
     if product

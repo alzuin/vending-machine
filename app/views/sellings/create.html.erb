@@ -1,0 +1,22 @@
+<h1>
+  Here is your product
+  <%=@product.name%>
+</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>You paid <%=@product.value_in_pound%> in this way:</h4>
+    <%=print_paid_hash(@selling)%>
+  </div>
+
+  <div class="col-md-6">
+    <h4>Your change is:</h4>
+    <%=print_change_hash(@selling)%>
+  </div>
+</div>
+
+<% if @selling.amount > 0%>
+  <h3>There are not enough coins for the change, so you have a credit of <%=@selling.number_to_pound(@selling.amount)%></h3>
+<% end %>
+
+<%= link_to 'Home', root_path %>

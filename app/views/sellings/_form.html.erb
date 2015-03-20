@@ -1,0 +1,16 @@
+<%=form_for @selling, method: :post do |f| %>
+  <div class="form-group">
+    <%= f.label :product %>
+    <%= f.select :product, options_from_collection_for_select(@products, 'id', 'option_for_select')%>
+  </div>
+
+  <% @coins.each do |c| %>
+    <div class="form-group">
+      <%=f.label :"selling[paid][#{c.value}]",  c.value_in_pound %>
+      <%=text_field_tag :"selling[paid][#{c.value}]", 0 %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -3,6 +3,8 @@
 # * quantity: the item quantity in stock
 # * created_at: standard in RoR, is independent from the one that comes from the API
 # * updated_at: standard in RoR, is independent from the one that comes from the API
+# attr_accessor:
+# * difference: the increasing/decreasing quantity
 
 class Coin < ActiveRecord::Base
   include MathOperations
