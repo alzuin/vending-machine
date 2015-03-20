@@ -6,6 +6,10 @@ RSpec.describe CoinsController, type: :controller do
       get :index
       expect(response).to have_http_status(:success)
     end
+    it "should render index template" do
+      get :index
+      expect(response).to render_template :index
+    end
     it "populates an array of coins" do
       coins = FactoryGirl.create(:coin)
       get :index
@@ -34,7 +38,7 @@ RSpec.describe CoinsController, type: :controller do
       end
       it "redirects to the index page" do
         put :update, id: @coin, coin: FactoryGirl.attributes_for(:valid_update)
-        response.should redirect_to :index
+        expect(response).to redirect_to coins_path
       end
     end
     context "with invalid attributes" do
@@ -44,8 +48,8 @@ RSpec.describe CoinsController, type: :controller do
         expect(@coin.quantity).to eq(10)
       end
       it "re-renders the :edit template" do
-        put :update, id: @coin, coin: FactoryGirl.attributes_for(:valid_update), format: :html
-        response.should render_template :edit
+        put :update, id: @coin, coin: FactoryGirl.attributes_for(:invalid_update), format: :html
+        expect(response).to render_template :edit
       end
     end
   end

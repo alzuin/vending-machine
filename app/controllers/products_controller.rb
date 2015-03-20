@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
       respond_to do |format|
         format.html do
           flash.now[:error] = 'Error adding product'
-          render :add
+          render :new
         end
         format.json do
           render json: { errors: @product.errors.full_messages }, status: 422

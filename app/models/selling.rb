@@ -114,6 +114,14 @@ class Selling < ActiveRecord::Base
   # create a change with the available coin (>0), but without checking the maximum number
   def create_change(amount)
     coins = Coin.all.map{ |coin| coin.value unless coin.quantity.nil? or coin.quantity == 0 }.compact
+
+    # an acceptable solution could be something like
+    # coins.sort.
+    #   reverse.
+    #   map{|coin| f = amount/coin; amount %= coin; Array.new(f){coin} }.
+    #   flatten
+    # Instead I used an hash to temporary store the result to improve (a lot) the speed
+
     coins.sort! { |a, b| b <=> a }
 
     # memoize solutions

@@ -1,28 +1,23 @@
-== README
+== Vending Machine simulator
+# Alberto Zuin
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Before starting coding I made some assumption regarding your exercise.
+You asked to do it in Ruby, so every possible idea is acceptable: from a simple daemon which runs, gets the money end elaborates the change, to a complex web application which emulates every aspect of the vending machine.
+I chose to do a complete Ruby on Rails application firstly to show my skills in organizing code via MVC and in developing via TDD.
+In my opinion, in a "real life example" the vending machine will not have an html web interface, so probably the core will communicate externally via simple APIs, so if we use Sinatra or rails-api, we will strip down the code.
+In any case, for the most useful controllers methods, I created both html and json views, so the application can communicate via API from scratch.
+The most important part of the code is the algorithm which elaborate the change.
+My second assumption is that the best algorithm is the one that return less coins to the customer, regardless the number of coins in machine. So, for example, if we have 2x50p and 100x10p and the change is 1P, my algorithm returns the two 50 pence coins, not 10 pieces of 10 pence.
+Also, my algorithm takes care of the number of coins in the vending machine, and if there are not enough coins for the best option, tries multiple solutions to give the change. If a complete change is not possible because there are not enough coins, it return a "receipt" to the customer.
+In the algorithm is used "memoization" using a hash as a sort of cache to improve the speed, instead of a simple map to improve the speed. Please, look at the comments inside selling model for a "standard" way to calculate the change.
+In my code I tried to be very verbose with comments, in order to make the life a little easier for you (and for me in case of refactoring). I also wrote a lot of tests (77) to assure the quality of the code.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+In any case, there wasn't a lot of time, so a lot of things could be optimized:
+* the algorithm for change is split in two: first (lower) part returns the best possible options without taking care of the number of coins and the second (upper) part, check if there are enough coins. For example, if the change is 1.5 pounds but we have inside the machine 0x1P, 2x50p, 10x10p, the first better solution found will be 3x50p. In this case, the upper algorithm uses the 2x50p coins and relaunch the lower passing the new change (50p); the lower method will return 5x10p this time. Probably is possible to reduce the algorithm to do everything in one shot.
+* a cache on top of the coins situation in the vending machine can be useful to reduce the load and improve the speed.
+* a better validation of the "paid" hash
+* the test are a lot, but not enough
+* in the development environment I used the standard sqlite database. this can be acceptable also in production because the vending machine could be only a "monolithic standalone" system. But if we will have also external connections via API, we could use a lot of better backends. Also, in the code, there is only one relation (product->selling), so a relational database is not really necessary: in this case, a NoSQL database like MongoDB could be considered to improve the speed.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+

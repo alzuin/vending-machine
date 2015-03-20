@@ -24,13 +24,13 @@ RSpec.describe Product, type: :model do
   end
 
   it 'is invalid without a price' do
-    expect(FactoryGirl.build(:product, price: nil)).not_to be_valid
+    expect(FactoryGirl.build(:product, value: nil)).not_to be_valid
   end
   it 'is invalid with a negative price' do
-    expect(FactoryGirl.build(:product, price: -10)).not_to be_valid
+    expect(FactoryGirl.build(:product, value: -10)).not_to be_valid
   end
   it 'is invalid with a float price' do
-    expect(FactoryGirl.build(:product, price: 9.12)).not_to be_valid
+    expect(FactoryGirl.build(:product, value: 9.12)).not_to be_valid
   end
 
   it 'is invalid with a float difference' do
